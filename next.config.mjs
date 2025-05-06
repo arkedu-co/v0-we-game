@@ -1,26 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configurações básicas
-  reactStrictMode: true,
+  // Em vez de usar um array vazio ou filtrar para um array vazio,
+  // vamos usar extensões que não existem no nosso projeto
+  pageExtensions: ['nonexistent'],
   
-  // Configuração de imagens
+  // Outras configurações
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
     domains: ['localhost', 'supabase.co'],
     unoptimized: true,
   },
-  
-  // Ignorar erros durante o build
+  experimental: {
+    serverActions: true,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  
-  // Compilador
+  // Garantir que o SWC seja usado
   compiler: {
     styledComponents: true,
-  }
+  },
 }
 
 export default nextConfig

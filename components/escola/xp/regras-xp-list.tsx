@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { PlusCircle, Pencil, Trash2 } from "lucide-react"
 import { listarRegrasXP, excluirRegraXP } from "@/lib/services/xp-service"
-import { getSchoolIdFromSession } from "@/lib/utils/auth-helpers.client" // Importando da versão client
+import { getSchoolIdFromSession } from "@/lib/utils/auth-helpers"
 
 export default function RegrasXPList() {
   const [regras, setRegras] = useState<any[]>([])

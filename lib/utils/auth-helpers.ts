@@ -1,17 +1,11 @@
 import { getSupabaseServer } from "@/lib/supabase/server"
+import { cookies } from "next/headers"
 import { getSupabaseClient } from "@/lib/supabase/client"
-
-// Função para obter cookies de forma segura
-async function getCookieStore() {
-  // Importação dinâmica para evitar problemas durante a construção
-  const { cookies } = await import("next/headers")
-  return cookies()
-}
 
 export async function getAuthenticatedUser() {
   try {
-    const cookieStore = await getCookieStore()
-    const supabase = await getSupabaseServer(cookieStore)
+    const cookieStore = cookies()
+    const supabase = getSupabaseServer(cookieStore)
 
     // Tentar obter a sessão até 3 vezes
     let session = null
@@ -48,8 +42,8 @@ export async function getAuthenticatedUser() {
 
 export async function getUserProfile(userId: string) {
   try {
-    const cookieStore = await getCookieStore()
-    const supabase = await getSupabaseServer(cookieStore)
+    const cookieStore = cookies()
+    const supabase = getSupabaseServer(cookieStore)
 
     const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single()
 
@@ -65,7 +59,7 @@ export async function getUserProfile(userId: string) {
   }
 }
 
-// Função específica para cliente - não usa cookies()
+// Nova função para obter o ID da escola da sessão do usuário
 export async function getSchoolIdFromSession() {
   try {
     const supabase = getSupabaseClient()
