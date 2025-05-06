@@ -1,42 +1,21 @@
-const fs = require("fs")
-const path = require("path")
 const { execSync } = require("child_process")
+const path = require("path")
 
 console.log("Executando script de pré-build...")
 
-// Função para remover um diretório recursivamente
-function removeDirectory(dir) {
-  if (fs.existsSync(dir)) {
-    fs.readdirSync(dir).forEach((file) => {
-      const curPath = path.join(dir, file)
-
-      if (fs.lstatSync(curPath).isDirectory()) {
-        // Recursivamente remover subdiretórios
-        removeDirectory(curPath)
-      } else {
-        // Remover arquivo
-        fs.unlinkSync(curPath)
-      }
-    })
-
-    // Remover o diretório vazio
-    fs.rmdirSync(dir)
-  }
-}
-
-// Remover a pasta pages/ se ela existir
-console.log("Verificando e removendo a pasta pages/...")
-if (fs.existsSync("pages")) {
-  console.log("Pasta pages/ encontrada. Removendo...")
-  removeDirectory("pages")
-  console.log("Pasta pages/ removida com sucesso!")
-} else {
-  console.log("Pasta pages/ não encontrada. Nada a fazer.")
+// Executar o script de remoção do diretório pages/
+try {
+  console.log("Removendo diretório pages/...")
+  execSync("node " + path.join(__dirname, "remove-pages-directory.js"), { stdio: "inherit" })
+  console.log("Diretório pages/ removido com sucesso!")
+} catch (error) {
+  console.error("Erro ao remover diretório pages/:", error)
 }
 
 // Função para verificar se um arquivo contém importações de next/headers
 function checkFileForHeaders(filePath) {
   try {
+    const fs = require("fs") // Added require fs here since it's not available in the updated code
     const content = fs.readFileSync(filePath, "utf8")
     return content.includes("next/headers")
   } catch (err) {
@@ -46,6 +25,8 @@ function checkFileForHeaders(filePath) {
 
 // Função para percorrer diretórios recursivamente
 function traverseDirectory(dir) {
+  const fs = require("fs") // Added require fs here since it's not available in the updated code
+
   if (!fs.existsSync(dir)) return
 
   const files = fs.readdirSync(dir)
@@ -100,6 +81,7 @@ function traverseDirectory(dir) {
 
 // Verificar e corrigir importações de next/headers
 console.log("Verificando e corrigindo importações de next/headers...")
+const fs = require("fs") // Added require fs here since it's not available in the updated code
 traverseDirectory(".")
 console.log("Verificação e correção concluídas!")
 
