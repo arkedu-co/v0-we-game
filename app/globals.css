@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    /* Nova paleta de cores roxas */
+    --primary: 265 89% 60%; /* Roxo principal */
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 265 89% 95%;
+    --primary-dark: 265 89% 40%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 265 89% 96%;
+    --accent-foreground: 265 89% 40%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 265 89% 60%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar */
+    --sidebar-background: 265 89% 60%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-accent: 265 89% 50%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 265 89% 55%;
+    --sidebar-ring: 0 0% 100%;
+
+    /* Card */
+    --card-shadow: 0 15px 30px -10px rgba(149, 76, 233, 0.15), 0 8px 10px -5px rgba(149, 76, 233, 0.1);
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --primary: 265 89% 60%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 265 89% 25%;
+    --primary-dark: 265 89% 70%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 265 89% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 265 89% 60%;
+
+    /* Sidebar */
+    --sidebar-background: 265 89% 30%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-accent: 265 89% 40%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 265 89% 25%;
+    --sidebar-ring: 0 0% 100%;
+
+    /* Card */
+    --card-shadow: 0 15px 30px -10px rgba(149, 76, 233, 0.3), 0 8px 10px -5px rgba(149, 76, 233, 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-gray-900;
+  }
+
+  p,
+  span,
+  div {
+    @apply text-gray-900;
+  }
+
+  /* Estilo para cards com sombra espessa */
+  .card-shadow {
+    box-shadow: var(--card-shadow);
+  }
+
+  /* Estilo para o efeito de vidro embaçado */
+  .glass-effect {
+    @apply bg-white bg-opacity-80 backdrop-blur-sm;
+  }
+}
+
+/* Estilos específicos para o sidebar */
+.sidebar-item {
+  @apply flex items-center gap-3 rounded-md px-3 py-2 text-sidebar-foreground transition-colors hover:bg-sidebar-accent hover:text-sidebar-accent-foreground;
+}
+
+.sidebar-item.active {
+  @apply bg-white bg-opacity-20 font-medium;
+}
+
+/* Estilos para botões principais */
+.btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary-dark;
+}
+
+/* Estilos para badges/tags */
+.badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300;
+}
+
+.badge-warning {
+  @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300;
+}
+
+.badge-info {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300;
+}
+
+/* Estilo para texto com gradiente */
+.text-gradient {
+  @apply bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent;
+}
+
+/* Animações para elementos decorativos */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Fix for dropdown menus */
+[data-radix-popper-content-wrapper] {
+  z-index: 999 !important;
+}
+
+/* Fix for all nested dropdown menus */
+.radix-dropdown {
+  z-index: 999 !important;
+}
+
+/* Additional fixes for dropdowns in tables */
+td,
+th {
+  position: relative;
+}
+
+/* Ensure dropdown trigger has proper positioning */
+td button[role="combobox"],
+td [data-state="open"],
+td .relative {
+  position: relative;
+  z-index: 50;
+}
+
+/* Make dropdown content always on top */
+[data-radix-menu-content],
+[data-radix-dropdown-menu-content] {
+  z-index: 999 !important;
+}
+
+/* Fix for action dropdowns */
+.action-dropdown-wrapper {
+  position: relative;
+  z-index: 50;
+}
+
+.action-dropdown-content {
+  z-index: 999 !important;
+  background-color: white !important;
+}
+
+/* Override any conflicting styles */
+[data-radix-popper-content-wrapper] > div {
+  background-color: white !important;
+  z-index: 999 !important;
+}
+
+/* Fix for school dashboard actions */
+.school-actions-dropdown [data-radix-popper-content-wrapper] {
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure all dropdown menus are visible */
+div[role="menu"] {
+  z-index: 9999 !important;
+  background-color: white !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Fix for any table with action menus */
+table td:last-child {
+  position: static;
+}
+
+table td:last-child > div {
+  position: relative;
+  z-index: 50;
+}
+
+/* Ensure dropdown menus in fixed containers are visible */
+.fixed *[data-radix-popper-content-wrapper],
+.sticky *[data-radix-popper-content-wrapper] {
+  z-index: 9999 !important;
+}
