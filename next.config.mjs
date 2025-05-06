@@ -2,13 +2,14 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
-    domains: ['localhost', 'supabase.co'],
+    domains: ['https://v0-we-game.vercel.app/', 'supabase.co'],
     unoptimized: true,
   },
   experimental: {
-    serverActions: true,
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'v0-we-game.vercel.app'],
+    },
   },
   eslint: {
     ignoreDuringBuilds: true,
