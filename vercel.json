@@ -1,4 +1,14 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/api/rewrite" }],
-  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1" }, { "src": "/(.*)", "dest": "/$1" }]
+  "routes": [
+    { "src": "/", "dest": "/" },
+    { "src": "/admin/(.*)", "dest": "/admin/$1" },
+    { "src": "/escola/(.*)", "dest": "/escola/$1" },
+    { "src": "/professor/(.*)", "dest": "/professor/$1" },
+    { "src": "/aluno/(.*)", "dest": "/aluno/$1" },
+    { "src": "/responsavel/(.*)", "dest": "/responsavel/$1" },
+    { "src": "/setup", "dest": "/setup" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/" }
+  ]
 }

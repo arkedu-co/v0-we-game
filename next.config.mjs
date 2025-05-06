@@ -1,28 +1,34 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remover a configuração pageExtensions que está causando problemas
-  // Usar as extensões padrão do Next.js
-  
-  // Outras configurações
+  // Configurações básicas
   reactStrictMode: true,
-  swcMinify: true,
+  
+  // Configuração de imagens
   images: {
     domains: ['localhost', 'supabase.co'],
     unoptimized: true,
   },
+  
+  // Configurações experimentais corrigidas
   experimental: {
-    serverActions: true,
+    // Corrigido: serverActions deve ser um objeto, não um boolean
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'vercel.app']
+    }
   },
+  
+  // Ignorar erros durante o build
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Garantir que o SWC seja usado
+  
+  // Compilador
   compiler: {
     styledComponents: true,
-  },
+  }
 }
 
 export default nextConfig
