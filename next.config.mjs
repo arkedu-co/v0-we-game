@@ -1,14 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remover a configuração de pageExtensions que está causando o problema
-  // Substituir:
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  
-  // Outras configurações
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', 'supabase.co'],
+    domains: ['localhost', 'vercel.app'],
     unoptimized: true,
   },
   experimental: {
@@ -20,10 +15,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  // Garantir que o SWC seja usado
-  compiler: {
-    styledComponents: true,
-  },
+  // Remova a linha pageExtensions: ['nonexistent'] se existir
 }
 
-export default nextConfig
+export default nextConfig;
