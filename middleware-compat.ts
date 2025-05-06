@@ -12,10 +12,9 @@ export async function middleware(req: NextRequest) {
   return res
 }
 
-// Ajustar o matcher para ser mais específico e não interferir em todas as rotas
 export const config = {
   matcher: [
-    // Rotas específicas que precisam de autenticação
+    // Rotas que precisam de autenticação
     "/pages/dashboard/:path*",
     "/pages/admin/:path*",
     "/pages/escola/:path*",

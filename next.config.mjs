@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configuração para ignorar a pasta pages/ completamente
-  pageExtensions: ['nonexistent-ext'],
+  // Em vez de usar um array vazio ou filtrar para um array vazio,
+  // vamos usar extensões que não existem no nosso projeto
+  pageExtensions: ['nonexistent'],
   
   // Outras configurações
   reactStrictMode: true,
