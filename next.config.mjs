@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configurar para ignorar o diretório pages/ completamente
-  // Isso evitará que o Next.js tente compilar arquivos no diretório pages/
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
-  
   // Outras configurações
   reactStrictMode: true,
   swcMinify: true,
@@ -23,6 +19,16 @@ const nextConfig = {
   // Garantir que o SWC seja usado
   compiler: {
     styledComponents: true,
+  },
+  // Adicionar configuração para tratar a página inicial corretamente
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/home',
+        permanent: true,
+      },
+    ]
   },
 }
 
