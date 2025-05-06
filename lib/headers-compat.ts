@@ -4,27 +4,13 @@
 // Alternativa para cookies()
 export function compatCookies() {
   // Retorna um objeto vazio em vez de chamar cookies()
-  return {
-    get: () => null,
-    getAll: () => [],
-    has: () => false,
-    set: () => {},
-    delete: () => {},
-  }
+  return {}
 }
 
 // Alternativa para headers()
 export function compatHeaders() {
   // Retorna um objeto vazio em vez de chamar headers()
-  return {
-    get: () => null,
-    getAll: () => [],
-    has: () => false,
-    entries: () => [],
-    keys: () => [],
-    values: () => [],
-    forEach: () => {},
-  }
+  return {}
 }
 
 // Função para verificar se estamos no servidor

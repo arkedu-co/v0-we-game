@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Em vez de usar um array vazio ou filtrar para um array vazio,
+  // vamos usar extensões que não existem no nosso projeto
+  pageExtensions: ['nonexistent'],
+  
   // Outras configurações
   reactStrictMode: true,
   swcMinify: true,
@@ -19,16 +23,6 @@ const nextConfig = {
   // Garantir que o SWC seja usado
   compiler: {
     styledComponents: true,
-  },
-  // Adicionar configuração para tratar a página inicial corretamente
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/home',
-        permanent: true,
-      },
-    ]
   },
 }
 

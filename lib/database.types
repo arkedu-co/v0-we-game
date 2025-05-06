@@ -350,40 +350,6 @@ export interface Database {
 }
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & {[_ in never]: never})
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] & {[_ in never]: never})
-    : never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] & {[_ in never]: never})[TableName]["Row"]
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] & {[_ in never]: never})
-    ? (Database["public"]["Tables"] & {[_ in never]: never})[PublicTableNameOrOptions]["Row"]
-    : never
-
-export type TableInsert<
-  PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & {[_ in never]: never})
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] & {[_ in never]: never})
-    : never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] & {[_ in never]: never})[TableName]["Insert"]
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] & {[_ in never]: never})
-    ? (Database["public"]["Tables"] & {[_ in never]: never})[PublicTableNameOrOptions]["Insert"]
-    : never
-
-export type TableUpdate<
-  PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & {[_ in never]: never})
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] & {[_ in never]: never})
-    : never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] & {[_ in never]: never})[TableName]["Update"]
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] & {[_ in never]: never})
-    ? (Database["public"]["Tables"] & {[_ in never]: never})[PublicTableNameOrOptions]["Update"]
-    : never
+  T extends keyof Database["public"]["Tables"]
+> = Database["public"]["Tables"][T]["Row"]
+"
