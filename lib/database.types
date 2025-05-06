@@ -348,6 +348,3 @@ export interface Database {
     }
   }
 }
-
-export {Database}
-"
