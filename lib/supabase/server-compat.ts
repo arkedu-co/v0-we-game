@@ -1,14 +1,23 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+import { createClient } from "@supabase/supabase-js"
 import type { Database } from "@/lib/database.types"
 
-// Versão compatível para projetos que usam a versão antiga do Supabase
-export function getSupabaseServerCompat() {
-  const cookieStore = cookies()
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+// Versão compatível do createServerClient que não depende de next/headers
+export function createServerClientCompat() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error("Supabase URL e Key são necessários")
+  }
+
+  return createClient<Database>(supabaseUrl, supabaseKey, {
+    auth: {
+      persistSession: false,
+    },
+  })
 }
 
-// Versão compatível para projetos que usam a versão antiga do Supabase
-export function createServerClientCompat(cookieStore: any) {
-  return createServerComponentClient<Database>({ cookies: () => cookieStore })
+// Função que estava faltando
+export function getSupabaseServerCompat() {
+  return createServerClientCompat()
 }
