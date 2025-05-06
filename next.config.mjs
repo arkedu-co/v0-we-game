@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Em vez de usar um array vazio ou filtrar para um array vazio,
-  // vamos usar extensões que não existem no nosso projeto
-  pageExtensions: ['nonexistent'],
+  // Remover a configuração de pageExtensions que está causando o problema
+  // Substituir:
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
   
   // Outras configurações
   reactStrictMode: true,

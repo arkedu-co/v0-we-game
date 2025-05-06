@@ -27,7 +27,16 @@ export async function middleware(req: NextRequest) {
   return res
 }
 
-// Configurar quais rotas devem passar pelo middleware
+// Vamos ajustar o middleware para garantir que ele não esteja bloqueando rotas indevidamente
+// Substituir o matcher atual por um mais específico:
+
 export const config = {
-  matcher: ["/professor/dashboard/:path*"],
+  matcher: [
+    // Rotas que precisam de autenticação
+    "/professor/dashboard/:path*",
+    "/professor/alunos/:path*",
+    "/professor/turmas/:path*",
+    "/professor/atitudes/:path*",
+    "/professor/xp/:path*",
+  ],
 }
