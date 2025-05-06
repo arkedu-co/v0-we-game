@@ -9,14 +9,6 @@ const nextConfig = {
     unoptimized: true,
   },
   
-  // Configurações experimentais corrigidas
-  experimental: {
-    // Corrigido: serverActions deve ser um objeto, não um boolean
-    serverActions: {
-      allowedOrigins: ['localhost:3000', 'vercel.app']
-    }
-  },
-  
   // Ignorar erros durante o build
   eslint: {
     ignoreDuringBuilds: true,
