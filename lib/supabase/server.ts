@@ -1,27 +1,36 @@
 import { createServerClient as createServerClientOriginal } from "@supabase/ssr"
-import { cookies } from "next/headers"
 import type { Database } from "@/lib/database.types"
 import { createServerClientCompat, getSupabaseServerCompat } from "./server-compat"
 
-export function getSupabaseServer(cookieStore = cookies()) {
+// Função para obter cookies de forma segura
+async function getCookieStore() {
+  // Importação dinâmica para evitar problemas durante a construção
+  const { cookies } = await import("next/headers")
+  return cookies()
+}
+
+export async function getSupabaseServer(cookieStore?: any) {
   // Log para debug
   console.log("[DEBUG-SUPABASE-SERVER] Criando cliente Supabase Server")
 
   try {
+    // Se cookieStore não for fornecido, obtenha-o dinamicamente
+    const store = cookieStore || (await getCookieStore())
+
     const client = createServerClientOriginal<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
           get(name: string) {
-            const cookie = cookieStore.get(name)?.value
+            const cookie = store.get(name)?.value
             console.log(`[DEBUG-SUPABASE-SERVER] Obtendo cookie: ${name}`, cookie ? "Encontrado" : "Não encontrado")
             return cookie
           },
           set(name: string, value: string, options: any) {
             try {
               console.log(`[DEBUG-SUPABASE-SERVER] Definindo cookie: ${name}`)
-              cookieStore.set({ name, value, ...options })
+              store.set({ name, value, ...options })
             } catch (error) {
               // This might happen in middleware where cookies are readonly
               console.error("[DEBUG-SUPABASE-SERVER] Falha ao definir cookie:", error)
@@ -30,7 +39,7 @@ export function getSupabaseServer(cookieStore = cookies()) {
           remove(name: string, options: any) {
             try {
               console.log(`[DEBUG-SUPABASE-SERVER] Removendo cookie: ${name}`)
-              cookieStore.set({ name, value: "", ...options })
+              store.set({ name, value: "", ...options })
             } catch (error) {
               // This might happen in middleware where cookies are readonly
               console.error("[DEBUG-SUPABASE-SERVER] Falha ao remover cookie:", error)
@@ -49,11 +58,7 @@ export function getSupabaseServer(cookieStore = cookies()) {
 }
 
 // Modificar a exportação da função createServerClient para incluir as variáveis de ambiente necessárias
-// Substituir esta linha:
-//export const createServerClient = createServerClientOriginal
-
-// Por esta implementação:
-export function createServerClient(cookieStore: any) {
+export async function createServerClient(cookieStore: any) {
   return createServerClientOriginal<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -82,6 +87,6 @@ export function createServerClient(cookieStore: any) {
     },
   )
 }
+
 // Re-exportar as versões compatíveis
-//export const createServerClient = createServerClientOriginal
 export { createServerClientCompat, getSupabaseServerCompat }
