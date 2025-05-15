@@ -1,0 +1,5 @@
+{
+  "buildCommand": "pnpm run build:app-only",
+  "ignoreCommand": "echo 'Ignoring pages directory'",
+  "framework": "nextjs"
+}
