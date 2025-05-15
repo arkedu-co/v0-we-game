@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configuração para ignorar completamente a pasta pages/
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js'].map(ext => `app/**/*.${ext}`),
+  // Configuração correta para pageExtensions
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   
   // Outras configurações
   reactStrictMode: true,
@@ -23,15 +23,19 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  // Ignorar a pasta pages/ durante a compilação
-  webpack: (config, { isServer }) => {
-    // Adicionar regra para ignorar a pasta pages/
+  // Ignorar a pasta pages/ durante a compilação usando uma abordagem diferente
+  webpack: (config, { isServer, defaultLoaders }) => {
+    // Adicionar regra para ignorar arquivos na pasta pages/
     config.module.rules.push({
-      test: /pages\//,
-      loader: 'ignore-loader',
+      test: /pages[\\/].*\.(js|jsx|ts|tsx)$/,
+      use: 'ignore-loader',
     });
     
     return config;
+  },
+  // Configuração para direcionar o Next.js a usar apenas o App Router
+  experimental: {
+    appDir: true,
   },
 }
 
