@@ -10,9 +10,11 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
+    // Configuração correta para serverActions
     serverActions: {
       allowedOrigins: ['localhost:3000', 'v0-we-game.vercel.app'],
     },
+    // Removido appDir que não é mais necessário
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -23,7 +25,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  // Ignorar a pasta pages/ durante a compilação usando uma abordagem diferente
+  // Ignorar a pasta pages/ durante a compilação
   webpack: (config, { isServer, defaultLoaders }) => {
     // Adicionar regra para ignorar arquivos na pasta pages/
     config.module.rules.push({
@@ -32,10 +34,6 @@ const nextConfig = {
     });
     
     return config;
-  },
-  // Configuração para direcionar o Next.js a usar apenas o App Router
-  experimental: {
-    appDir: true,
   },
 }
 
